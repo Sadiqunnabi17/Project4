@@ -17,12 +17,26 @@
     </style>
 
 </head>
-<body>
-    <h1 class="text-3xl text-center py-10 font-bold underline text-clifford">
-      Hello world!
+<body class="bg-gray-100">
+    <h1 class="text-2xl text-center mt-5 font-bold">
+      Job Application Tracker
     </h1>
-    <div class="text-center">
-        <button class="btn">Click Me</button>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+      <div class="bg-blue-500 text-white p-4 rounded">
+        <h2>Total Jobs</h2>
+        <p id="totalCount">0</p>
+      </div>
+      
+      <div class="bg-green-500 text-white p-4 rounded">
+        <h2>Interview</h2>
+        <p id="interviewCount">0</p>
+      </div>
+
+      <div class="bg-red-500 text-white p-4 rounded">
+        <h2>Rejected</h2>
+        <p id="rejectedCount">0</p>
+      </div>
 
     </div>
 </body>
