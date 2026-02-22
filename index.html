@@ -17,27 +17,80 @@
     </style>
 
 </head>
-<body class="bg-gray-100">
+<body class="bg-base-200">
+  <div>
     <h1 class="text-2xl text-center mt-5 font-bold">
       Job Application Tracker
     </h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
-      <div class="bg-blue-500 text-white p-4 rounded">
-        <h2>Total Jobs</h2>
-        <p id="totalCount">0</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 text-center">
+      <div class="bg-white p-4 rounded">
+        <h2 class="text-gray-700">Total Jobs</h2>
+        <p id="totalCount" class="text-3xl font-semibold text-primary">0</p>
       </div>
       
-      <div class="bg-green-500 text-white p-4 rounded">
-        <h2>Interview</h2>
-        <p id="interviewCount">0</p>
+      <div class="bg-white p-4 rounded">
+        <h2 class="text-gray-700">Interview</h2>
+        <p id="interviewCount" class="text-3xl font-semibold text-success">0</p>
       </div>
 
-      <div class="bg-red-500 text-white p-4 rounded">
-        <h2>Rejected</h2>
-        <p id="rejectedCount">0</p>
+      <div class="bg-white text-gray-800 p-4 rounded">
+        <h2 class="text-gray-700">Rejected</h2>
+        <p id="rejectedCount" class="text-3xl font-semibold text-error">0</p>
       </div>
 
     </div>
+
+    <div class= "p-5">
+      
+      <div class="flex justify-between">
+        <h2 class="text-xl font-bold">Available Jobs</h2>
+      </div>
+
+      <div class="flex gap-2 mt-7">
+        <button class="btn btn-primary">All</button>
+        <button class="btn btn-success">Interview</button>
+        <button class="btn btn-warning">Rejected</button>
+      </div>
+
+    </div>
+
+    <!--======Job Info=======-->
+    
+    <!--======First Job=======-->
+    <div class="card bg-base-100 shadow-md mb-6">
+      <div class="card-body">
+
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="card-little text-lg">Mobile First Corp</h2>
+            <p class="text-sm text-gray-500">React Native Developer</p>
+          </div>
+          <button class="btn btn-ghost btn-circle btn-sm p-4">🗑</button>
+        </div>
+        <p class="text-sm text-gray-500">
+          Remote • Full-time • $130,000 - $175,000
+        </p>
+        <span class="badge badge-outline badge-info">
+          NOT APPLIED
+        </span>
+        <p class="text-sm text-gray-500">
+          Build cross-platform mobile applications using React Native.
+          Work on products used by millions of users worldwide.
+        </p>
+        
+        <div class="flex gap-3 mt-3">
+          <button class="btn btn-outline btn-success btn-sm">
+            INTERVIEW
+          </button>
+          <button class="btn btn-outline btn-error btn-sm">
+            REJECTED
+          </button>
+        </div>
+    </div>
+  
+  </div>
+ </div>
+
 </body>
 </html
