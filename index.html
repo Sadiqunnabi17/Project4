@@ -52,13 +52,15 @@
   </div>
 
   <!--===Filter Buttons===-->
-
-  <div class="tabs tabs-boxed mb-6">
-    <button class="tab tab-active" onclick="filterjobs('all')">All</button>
-    <button class="tab" onclick="filterjobs('interviewed')">Interviewed</button>
-    <button class="tab" onclick="filterjobs('rejected')">Rejected</button>
+  <div class="flex justify-left gap-3 mb-6">
+    <button class="btn btn-primary filter-btn shadow-none"
+      onclick="filterjobs('all', this)">All</button>
+    <button class="btn btn-success filter-btn shadow-none"
+      onclick="filterjobs('interviewed', this)">Interviewed</button>
+    <button class="btn btn-error filter-btn shadow-none" onclick="filterjobs('rejected',this)">Rejected</button>
   </div>
 
+  
   <!--====No Job Message====-->
   <div id="emptyMessage" class="hidden text-center p-10 bg-base-100 rounded-lg shadow">
     <img src="/B13-A4-PH-Job-Tracker/jobs.png" class="mx-auto mb-4" alt="">
@@ -82,7 +84,7 @@
         type: "Full-time",
         salary: "$130,000 - $175,000",
         description: "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
-        status: "Not Applied"
+        status: "not_applied"
 
       },
       {
@@ -93,6 +95,7 @@
         type: "Part-time",
         salary: "$80,000 - $120,000",
         description: "Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.",
+        status: "not_applied"
       },
       {
         id: 3,
@@ -101,7 +104,8 @@
         location: "Boston, MA",
         type: "Full-time",
         salary: "$125,000 - $165,000",
-        description: "BTransform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking."
+        description: "BTransform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking.",
+        status: "not_applied"
       },
       {
         id: 4,
@@ -111,7 +115,7 @@
         type: "Full-time",
         salary: "$140,000 - $190,000",
         description: "Design and maintain scalable backend systems using Python and AWS. Work with modern DevOps practices and cloud infrastructure.",
-        status: "Not Applied"
+        status: "not_applied"      
       },
       {
         id: 5,
@@ -121,7 +125,7 @@
         type: "Full-time",
         salary: "$110,000 - $150,000",
         description: "Create beautiful and functional user interfaces for our suite of products. Strong design skills and frontend development expertise required.",
-        status: "Not Applied"
+        status: "not_applied"
       },
       {
         id: 6,
@@ -131,7 +135,7 @@
         type: "Full-time",
         salary: "$120,000 - $160,000",
         description: "Join our fast-growing startup and work on our core platform. Experience with Node.js and React required. Great benefits and equity package included.",
-        status: "Not Applied"
+        status: "not_applied"
       },
       {
         id: 7,
@@ -141,7 +145,7 @@
         type: "Full-time",
         salary: "$130,000 - $175,000",
         description: "We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team on cutting-edge projects.",
-        status: "Not Applied"
+        status: "not_applied"
       },
       {
         id: 8,
@@ -151,12 +155,17 @@
         type: "Full-time",
         salary: "$130,000 - $170,000",
         description: "Build enterprise applications with JavaScript and modern frameworks. We offer competitive compensation, health insurance, and professional development opportunities.",
-        status: "Not Applied"
+        status: "not_applied"
       },
     ]
     
     //====Render Job===
-    function filterjobs(status) {
+    function filterjobs(status, buttonElement) {
+      document.querySelectorAll(".filterbtn").forEach(btn => {
+        btn.classList.remove("btn-active");
+      });
+      
+      buttonElement.classList.add("btn-active");
       if (status === "all") {
         renderJobs(jobs);
       } else {
