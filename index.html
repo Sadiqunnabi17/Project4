@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="corporate">
 <head>
 
   <meta charset="UTF-8">
@@ -22,21 +22,21 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 text-center">
     <div class="bg-base-100 shadow">
       <div class="card-body">
-        <h2>Total Jobs</h2>
+        <h2 class="text-xl text-blue-600">Total Jobs</h2>
         <p id="totalCount" class="text-3xl font-semibold text-primary">0</p>
       </div>
     </div>
     
     <div class="bg-base-100 shadow">
       <div class="card-body">
-        <h2>Interviewed</h2>
+        <h2 class="text-xl text-green-600">Interviewed</h2>
         <p id="interviewedCount" class="text-3xl font-semibold text-success">0</p>
       </div>
     </div>
 
     <div class="bg-base-100 shadow">
       <div class="card-body">
-        <h2>Rejected</h2>
+        <h2 class="text-xl text-red-600">Rejected</h2>
         <p id="rejectedCount" class="text-3xl font-semibold text-error">0</p>
       </div>
     </div>
@@ -46,18 +46,19 @@
 
   <div class="flex justify-between items-center mb-4">
       <h2 class="text-2xl font-bold">Available Jobs</h2>
-      <p class="font-semibold">
-        <span id="availableCount"></span> Jobs
+      <p class="font-semibold text-2xl text-blue-600">
+        <span class="text-2xl text-blue-600" id="availableCount"></span> Jobs
       </p>
   </div>
 
   <!--===Filter Buttons===-->
-  <div class="flex justify-left gap-3 mb-6">
-    <button class="btn btn-primary filter-btn shadow-none"
+  
+  <div class="flex justify-left gap-2 mb-10">
+    <button class="bg-blue-600 text-white w-16 rounded-xl"
       onclick="filterjobs('all', this)">All</button>
-    <button class="btn btn-success filter-btn shadow-none"
+    <button class="bg-green-600 text-white h-10 w-40 rounded-xl"
       onclick="filterjobs('interviewed', this)">Interviewed</button>
-    <button class="btn btn-error filter-btn shadow-none" onclick="filterjobs('rejected',this)">Rejected</button>
+    <button class="bg-red-600 text-white h-10 w-40 rounded-xl" onclick="filterjobs('rejected',this)">Rejected</button>
   </div>
 
   
@@ -191,7 +192,7 @@
 
       filteredJobs.forEach(job => {
         const card = document.createElement("div");
-        card.className = "card bg-base-100 shadow";
+        card.className = "card bg-base-100 shadow-md rounded-xl";
 
         card.innerHTML = `
           <div class="card-body">
@@ -216,12 +217,14 @@
             </p>
             
             <div class="flex gap-3 mt-3">
-              <button class="btn btn-outline btn-success btn-sm"
+              <button class="text-blue-600 border border-blue-600 px-4 py-2 rounded
+              hover:bg-blue-300 transition"
               onclick="updateStatus(${job.id}, 'interviewed')">
               INTERVIEWED
               </button>
 
-              <button class="btn btn-outline btn-error btn-sm"
+              <button class="text-red-600 border border-red-600 px-4 py-2 rounded
+                hover:bg-red-300 transition"
                 onclick="updateStatus(${job.id}, 'rejected')">
                 REJECTED
               </button>
