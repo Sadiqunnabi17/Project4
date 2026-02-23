@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="corporate">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project4</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+
+</head>
+
+<body class="bg-base-200 min-h-screen p-6">
+  
+  <!--===Header Counter===-->
+  <h1 class="text-3xl text-center mb-6 font-bold">
+      Job Application Tracker
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 text-center">
+    <div class="bg-base-100 shadow">
+      <div class="card-body">
+        <h2 class="text-xl text-blue-600">Total Jobs</h2>
+        <p id="totalCount" class="text-3xl font-semibold text-primary">0</p>
+      </div>
+    </div>
+    
+    <div class="bg-base-100 shadow">
+      <div class="card-body">
+        <h2 class="text-xl text-green-600">Interviewed</h2>
+        <p id="interviewedCount" class="text-3xl font-semibold text-success">0</p>
+      </div>
+    </div>
+
+    <div class="bg-base-100 shadow">
+      <div class="card-body">
+        <h2 class="text-xl text-red-600">Rejected</h2>
+        <p id="rejectedCount" class="text-3xl font-semibold text-error">0</p>
+      </div>
+    </div>
+  </div>
+
+  <!--===Available Job===-->
+
+  <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold">Available Jobs</h2>
+      <p class="font-semibold text-2xl text-blue-600">
+        <span class="text-2xl text-blue-600" id="availableCount"></span> Jobs
+      </p>
+  </div>
+
+  <!--===Filter Buttons===-->
+  
+  <div class="flex justify-left gap-2 mb-10">
+    <button class="bg-blue-600 text-white w-16 rounded-xl"
+      onclick="filterjobs('all', this)">All</button>
+    <button class="bg-green-600 text-white h-10 w-40 rounded-xl"
+      onclick="filterjobs('interviewed', this)">Interviewed</button>
+    <button class="bg-red-600 text-white h-10 w-40 rounded-xl" onclick="filterjobs('rejected',this)">Rejected</button>
+  </div>
+
+  
+  <!--====No Job Message====-->
+  <div id="emptyMessage" class="hidden text-center p-10 bg-base-100 rounded-lg shadow">
+    <img src="/jobs.png" class="mx-auto mb-4" alt="">
+    <h2 class="text-2xl font-bold mb-2">No jobs available</h2>
+    <p class="text-gray-500">Check back soon for new job opportunities</p>
+  </div>
+
+
+  <!--===Job Info===-->
+  <div id="jobList" class="space-y-6"></div>
+
+  <script>
+
+    // ===Job Data====
+    const jobs =[
+      {
+        id: 1,
+        company: "Mobile First Corp",
+        position: "React Native Developer",
+        location: "Remote",
+        type: "Full-time",
+        salary: "$130,000 - $175,000",
+        description: "Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.",
+        status: "not_applied"
+
+      },
+      {
+        id: 2,
+        company: "WebFlow Agency",
+        position: "Web Designer & Developer",
+        location: "Los Angeles, CA",
+        type: "Part-time",
+        salary: "$80,000 - $120,000",
+        description: "Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.",
+        status: "not_applied"
+      },
+      {
+        id: 3,
+        company: "DataViz Solutions",
+        position: "Data Visualization Specialist",
+        location: "Boston, MA",
+        type: "Full-time",
+        salary: "$125,000 - $165,000",
+        description: "BTransform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking.",
+        status: "not_applied"
+      },
+      {
+        id: 4,
+        company: "CloudFirst Inc",
+        position: "Backend Developer",
+        location: "Seattle, WA",
+        type: "Full-time",
+        salary: "$140,000 - $190,000",
+        description: "Design and maintain scalable backend systems using Python and AWS. Work with modern DevOps practices and cloud infrastructure.",
+        status: "not_applied"      
+      },
+      {
+        id: 5,
+        company: "Innovation Labs",
+        position: "UI/UX Engineer",
+        location: "Austin, TX",
+        type: "Full-time",
+        salary: "$110,000 - $150,000",
+        description: "Create beautiful and functional user interfaces for our suite of products. Strong design skills and frontend development expertise required.",
+        status: "not_applied"
+      },
+      {
+        id: 6,
+        company: "StartupXYZ",
+        position: "Full Stack Engineer",
+        location: "Remote",
+        type: "Full-time",
+        salary: "$120,000 - $160,000",
+        description: "Join our fast-growing startup and work on our core platform. Experience with Node.js and React required. Great benefits and equity package included.",
+        status: "not_applied"
+      },
+      {
+        id: 7,
+        company: "TechCorp Industries",
+        position: "Senior Frontend Developer",
+        location: "San Fransisco, CA",
+        type: "Full-time",
+        salary: "$130,000 - $175,000",
+        description: "We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team on cutting-edge projects.",
+        status: "not_applied"
+      },
+      {
+        id: 8,
+        company: "MegaCorp Solutions",
+        position: "JavaScript Developer",
+        location: "New York",
+        type: "Full-time",
+        salary: "$130,000 - $170,000",
+        description: "Build enterprise applications with JavaScript and modern frameworks. We offer competitive compensation, health insurance, and professional development opportunities.",
+        status: "not_applied"
+      },
+    ]
+    
+    //====Render Job===
+    function filterjobs(status, buttonElement) {
+      document.querySelectorAll(".filterbtn").forEach(btn => {
+        btn.classList.remove("btn-active");
+      });
+      
+      buttonElement.classList.add("btn-active");
+      if (status === "all") {
+        renderJobs(jobs);
+      } else {
+        const filtered = jobs.filter(j => j.status === status);
+        renderJobs(filtered);
+      }
+    }
+    function formatStatus(status) {
+      if (status === "not_applied") return "NOT APPLIED";
+      if (status === "interviewed") return "INTERVIEWED";
+      if (status === "rejected") return "REJECTED";
+    }
+    
+    function renderJobs(filteredJobs) {
+      const jobList = document.getElementById("jobList");
+      jobList.innerHTML = "";
+
+      if (filteredJobs.length === 0) {
+        document.getElementById("emptyMessage").classList.remove("hidden");
+      } else {
+        document.getElementById("emptyMessage").classList.add("hidden");
+      }
+
+      filteredJobs.forEach(job => {
+        const card = document.createElement("div");
+        card.className = "card bg-base-100 shadow-md rounded-xl";
+
+        card.innerHTML = `
+          <div class="card-body">
+            <div class="flex justify-between items-start">
+              <div>
+                <h2 class="text-lg font-bold">${job.company}</h2>
+                <p class="text-sm text-gray-500">${job.position}</p>
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="deleteJob(${job.id})">🗑</button>
+            </div>
+
+            <p class="text-sm text-gray-500">
+              ${job.location} • ${job.type} • ${job.salary}
+            </p>
+
+            <span class="badge ${getBadgeClass(job.status)}">
+                ${formatStatus(job.status)}
+            </span>
+
+            <p class="text-sm text-gray-500">
+              ${job.description}
+            </p>
+            
+            <div class="flex gap-3 mt-3">
+              <button class="text-blue-600 border border-blue-600 px-4 py-2 rounded
+              hover:bg-blue-300 transition"
+              onclick="updateStatus(${job.id}, 'interviewed')">
+              INTERVIEWED
+              </button>
+
+              <button class="text-red-600 border border-red-600 px-4 py-2 rounded
+                hover:bg-red-300 transition"
+                onclick="updateStatus(${job.id}, 'rejected')">
+                REJECTED
+              </button>
+            </div>
+          </div>
+        `;
+
+        jobList.appendChild(card);
+      });
+
+      updateCounters();
+    }
+
+    //===Badge Color====
+    function getBadgeClass(status) {
+      if (status === "interviewed") return "badge badge-success";
+      if (status === "rejected") return "badge badge-error";
+      return "badge badge-info";
+    }
+
+    //===Update Status====
+    function updateStatus(id, newStatus) {
+      const job = jobs.find(j=> j.id === id);
+      job.status = newStatus;
+      renderJobs(jobs);
+    }
+
+    //===Delete Job===
+
+    function deleteJob(id) {
+      const index = jobs.findIndex(j => j.id ===id);
+      jobs.splice(index,1);
+      renderJobs(jobs);
+    }
+    
+    //===Updates Counters===
+
+    function updateCounters() {
+      const total = jobs.length;
+      const interviewed = jobs.filter(j=> j.status === "interviewed").length;
+      const rejected = jobs.filter(j=> j.status === "rejected").length;
+
+      document.getElementById("totalCount").innerText = total;
+      document.getElementById("interviewedCount").innerText = interviewed;
+      document.getElementById("rejectedCount").innerText = rejected;
+      document.getElementById("availableCount").innerText = total;
+    }
+
+    //===Initial Load====
+    renderJobs(jobs);
+    
+  </script>
+
+</body>
+</html
