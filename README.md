@@ -1,4 +1,4 @@
-Job Application Tracker
+**Job Application Tracker**
 
 This is my Assignment 4 project. I built a simple website where we can track job applications. We can mark jobs as Interviewed or Rejected and see the total count on the dashboard. 
 
