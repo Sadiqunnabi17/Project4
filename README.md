@@ -2,18 +2,18 @@
 
 This is my Assignment 4 project. I built a simple website where we can track job applications. We can mark jobs as Interviewed or Rejected and see the total count on the dashboard. 
 
-Live Link
+**Live Link**
 (Add your live site link here)
 
-GitHub Link
+**GitHub Link**
 (Add your GitHub repository link here)
 
-Technologies I Used
+**Technologies I Used**
 •	HTML
 •	Tailwind CSS & DaisyUI
 •	JavaScript (Vanilla)
 
-What This Project Does
+**What This Project Doe**s
 •	Shows total jobs, interviewed jobs, and rejected jobs.
 •	Has three buttons: All, Interviewed, Rejected.
 •	Shows minimum 8 job cards.
@@ -31,13 +31,13 @@ Each card has:
   o	Rejected button
   o	Delete button
 
-When I click:
+**When I click:**
 Interviewed → The job moves to Interview tab and count increases.
 Rejected → The job moves to Rejected tab and count increases.
 Delete → The job is removed and the count decreases.
 If no jobs are available in a tab, it shows a message.
 
-Frequently Asked Questions (FAQs)
+**Frequently Asked Questions (FAQs)**
 1.	Difference between getElementById, getElementsByClassName, querySelector, querySelectorAll
     •	getElementById() selects one element using id.
     •	getElementsByClassName() selects many elements using class.
@@ -61,7 +61,7 @@ Frequently Asked Questions (FAQs)
     •	preventDefault() stops default browser behavior.
     •	stopPropagation() stops the event from going to parent.
 
-What I Learned
+**What I Learned**
   •	How to work with DOM
   •	How to change data using JavaScript
 •	How to update UI dynamically
